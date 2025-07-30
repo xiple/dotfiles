@@ -1,6 +1,5 @@
-[user]
-	name = Loic Petit
-	email = loic.petit@ikmail.com
+[include]
+    path = .gitconfig.local
 [core]
 	editor = vim
 [alias]
@@ -8,3 +7,4 @@
 	br = branch
 	ci = commit
 	st = status
+
