@@ -1,0 +1,10 @@
+[user]
+	name = Loic Petit
+	email = loic.petit@ikmail.com
+[core]
+	editor = vim
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
