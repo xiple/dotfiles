@@ -1,0 +1,94 @@
+NOTES_EDITOR="code"
+NOTES_DIR="${HOME}/loic/notes"
+NOTES_RES=""
+
+alias cdn='cd ${NOTES_DIR}'
+alias ncd='cdn'
+alias nres='${NOTES_EDITOR} ${NOTES_RES}'
+alias nmore='nless'
+
+function nhelp () {
+    FMT="%-16s : %s\n"
+	printf "$FMT" "ncd"             "move to NOTES_DIR. 'cdn is working also'"
+	printf "$FMT" "n [note]"        "create note in NOTES_DIR"
+	printf "$FMT" "nls [pattern]"   "List notes using an optional pattern"
+	printf "$FMT" "nlst"            "Open last edited note"
+	printf "$FMT" "ng <pattern>"    "Grep pattern in NOTES_DIR (insensitive)"
+	printf "$FMT" "ngl <pattern>"   "Same as ng, but list files match only"
+	printf "$FMT" "nres"            "Edit notes from the output of nls, ngl"
+	printf "$FMT" "nless <pattern>" "View notes using a pattern"
+	printf "$FMT" "nmore <pattern>" "Same as nless"
+	printf "$FMT" "nvi <pattern>"   "Edit notes with vi"
+
+    return 0
+}
+
+function nls () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        ls -rt1 $NOTES_DIR
+        return 0
+    fi
+    NOTES_RES=$(ls -rt1 ${NOTES_DIR}/*${pattern}*)
+    echo "$NOTES_RES"
+}
+
+function nlst () {
+    last=$(find $NOTES_DIR -type f \( -name "*.md" -o -name "*.txt" \) -printf "%T+ %p\n" \
+        | sort -n \
+        | cut -d " " -f 2 \
+        | tail -1)
+    $NOTES_EDITOR "$last"
+}
+
+function n () {
+    now=$(date +%Y%m%d%H%M%S)
+    name="$1"
+    ext="${2:-txt}"
+    note_path=${NOTES_DIR}/"${now}_${name}.${ext}"
+    if [[ -z $name ]]; then
+        echo "Failed to create new note. Run again with a name"
+        return 1
+    fi
+    touch $note_path
+    chmod 644 $note_path
+    ${NOTES_EDITOR} $note_path
+}
+
+function ng () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        echo "Failed to grep. Run again with a pattern"
+        return 1
+    fi
+    grep -Ri $pattern ${NOTES_DIR}/*
+}
+
+function ngl () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        echo "Failed to grep. Run again with a pattern"
+        return 1
+    fi
+    NOTES_RES=$(grep -Ril $pattern ${NOTES_DIR}/*)
+    echo "$NOTES_RES"
+}
+
+function nless () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        echo "Failed. Run again with a pattern"
+        return 1
+    fi
+    less ${NOTES_DIR}/*${pattern}*
+}
+
+function nvi () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        echo "Failed. Run again with a pattern"
+        return 1
+    fi
+    vi ${NOTES_DIR}/*${pattern}*
+}
+
