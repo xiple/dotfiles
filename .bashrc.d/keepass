@@ -1,0 +1,16 @@
+# Open Keepass DB
+function kp() {
+    KP_DB_FILE="${HOME}/loic/prv.kdbx"
+
+    read -rp "Keepass database file [ ${KP_DB_FILE} ]: "
+    [[ -n ${REPLY} ]] && KP_DB_FILE=$REPLY
+
+    KEYFILE="$(find /run/media/ -type f -name "prv.kdbx.key" | tail -1)"
+    read -rp "Keyfile [ ${KEYFILE} ]: "
+    [[ -n ${REPLY} ]] && KEYFILE=$REPLY
+
+    kp_cmd="keepassxc --keyfile ${KEYFILE} --pw-stdin ${KP_DB_FILE}"
+    echo "Running '${kp_cmd}'"
+    ${kp_cmd}
+}
+

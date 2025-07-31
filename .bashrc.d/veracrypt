@@ -1,0 +1,23 @@
+alias vcl='veracrypt --list'
+alias vcda='veracrypt --dismount'
+
+# Mount Veracrypt volume to /media/prv
+function vcm() {
+    VC_FILE="${HOME}/loic/prv.hc"
+    read -rp "Veracrypt file [ ${VC_FILE} ]: "
+    [[ -n ${REPLY} ]] && VC_FILE=$REPLY
+
+    VC_MNT="/media/prv"
+    read -rp "Veracrypt mount point [ ${VC_MNT} ]: "
+    [[ -n ${REPLY} ]] && VC_MNT=$REPLY
+
+    KEYFILE="$(find /run/media/ -type f -name "prv.hc.key" | tail -1)"
+
+    read -rp "Keyfile [ ${KEYFILE} ]: "
+    [[ -n ${REPLY} ]] && KEYFILE=$REPLY
+
+    vc_cmd="veracrypt --mount $VC_FILE $VC_MNT --keyfiles ${KEYFILE} --pim 0 --protect-hidden no"
+    echo "Running '${vc_cmd}'"
+    ${vc_cmd}
+}
+
