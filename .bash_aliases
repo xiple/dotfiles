@@ -12,6 +12,9 @@ alias lh="ls -lh"
 alias grep="grep --color=auto"
 alias vi="vim"
 
+# frequent typos
+alias gti="git"
+
 ## Specific aliases
 
 alias cdl='cd ${HOME}/loic'
