@@ -11,6 +11,15 @@ function vcm() {
     read -rp "Veracrypt mount point [ ${VC_MNT} ]: "
     [[ -n ${REPLY} ]] && VC_MNT=$REPLY
 
+    if [ ! -d "$VC_MNT" ]; then
+        echo "Directory \"$VC_MNT\" does not exist. Creating..."
+
+        USER="${USER:-$(whoami)}"
+        sudo mkdir -p "$VC_MNT" \
+            && sudo chown ${USER}:${USER} "$VC_MNT" \
+            && sudo chmod 755 "$VC_MNT"
+    fi
+
     KEYFILE="$(find /run/media/ -type f -name "prv.hc.key" | tail -1)"
 
     read -rp "Keyfile [ ${KEYFILE} ]: "
