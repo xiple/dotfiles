@@ -3,6 +3,12 @@ alias vcda='veracrypt --dismount'
 
 # Mount Veracrypt volume to /media/prv
 function vcm() {
+    VC_CMD="/usr/bin/veracrypt"
+    if ! command -v "$VC_CMD" >/dev/null 2>&1; then
+        echo "$VC_CMD command not found..."
+        return 1
+    fi
+
     VC_FILE="${HOME}/loic/prv.hc"
     read -rp "Veracrypt file [ ${VC_FILE} ]: "
     [[ -n ${REPLY} ]] && VC_FILE=$REPLY
