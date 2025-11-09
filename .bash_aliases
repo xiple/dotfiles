@@ -36,4 +36,4 @@ alias f='find . | grep -i'
 alias h='history'
 alias hgrep='history | grep'
 alias ds='du -sm * | sort -n'
-
+alias img="loupe"
