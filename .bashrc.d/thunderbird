@@ -1,0 +1,39 @@
+function mail_usage() {
+    cat <<EOF
+Usage: mail attachment [to] [subject]
+Open a thunderbird window with a specific attachment file.
+
+Options:
+  attachment    The file to send
+  to            Fill "to" field with an email adress
+  subject       Fill "subject" field with a custom subject
+EOF
+}
+
+
+function mail() {
+    cmd="thunderbird -compose"
+    cmd_options=""
+
+    attachment="$1"
+    to="$2"
+    subject="'Fichier ${attachment##*/}'"
+
+    if [[ -z "$attachment" ]]; then
+        mail_usage
+        return 1
+    fi
+    cmd_options+="attachment=$attachment"
+
+    if [[ -n "$3" ]]; then
+        subject="$3"
+    fi
+    cmd_options+=",subject=$subject"
+
+    if [[ -n "$to" ]]; then
+        cmd_options+=",to=$to"
+    fi
+
+    echo "Running '$cmd $cmd_options'"
+    $cmd "$cmd_options"
+}
