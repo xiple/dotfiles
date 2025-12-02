@@ -14,7 +14,7 @@ function nhelp () {
 	printf "$FMT" "nls [pattern]"   "List notes using an optional pattern"
 	printf "$FMT" "nlst"            "Open last edited note"
 	printf "$FMT" "ng <pattern>"    "Grep pattern in NOTES_DIR (insensitive)"
-	printf "$FMT" "ngl <pattern>"   "Same as ng, but list files match only"
+	printf "$FMT" "ngl <pattern>"   "Same as ng, but list files with match"
 	printf "$FMT" "nres"            "Edit notes from the output of nls, ngl"
 	printf "$FMT" "nless <pattern>" "View notes using a pattern"
 	printf "$FMT" "nmore <pattern>" "Same as nless"
@@ -61,7 +61,7 @@ function ng () {
         echo "Failed to grep. Run again with a pattern"
         return 1
     fi
-    grep -Ri $pattern ${NOTES_DIR}/*
+    grep -Rih $pattern ${NOTES_DIR}/*
 }
 
 function ngl () {
@@ -70,8 +70,7 @@ function ngl () {
         echo "Failed to grep. Run again with a pattern"
         return 1
     fi
-    NOTES_RES=$(grep -Ril $pattern ${NOTES_DIR}/*)
-    echo "$NOTES_RES"
+    grep -RiH $pattern ${NOTES_DIR}/*
 }
 
 function nless () {
