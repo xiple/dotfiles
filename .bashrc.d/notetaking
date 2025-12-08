@@ -91,3 +91,11 @@ function nvi () {
     vi ${NOTES_DIR}/*${pattern}*
 }
 
+function ned () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        echo "Failed. Run again with a pattern"
+        return 1
+    fi
+    ${NOTES_EDITOR} ${NOTES_DIR}/*${pattern}*
+}
