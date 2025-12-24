@@ -1,3 +1,4 @@
+MD_EDITOR="marktext"
 NOTES_EDITOR="code"
 NOTES_DIR="${HOME}/loic/notes"
 NOTES_RES=""
@@ -98,4 +99,13 @@ function ned () {
         return 1
     fi
     ${NOTES_EDITOR} ${NOTES_DIR}/*${pattern}*
+}
+
+function nmd () {
+    pattern="$1"
+    if [ -z $pattern ]; then
+        echo "Failed. Run again with a pattern"
+        return 1
+    fi
+    ${MD_EDITOR} ${NOTES_DIR}/*${pattern}*
 }
