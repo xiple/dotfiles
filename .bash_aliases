@@ -30,7 +30,7 @@ fi
 
 alias c="code"
 alias mkdir='mkdir -pv'
-alias pdf='evince -f'
+alias pdf='papers'
 alias md='marktext'
 alias lbo='libreoffice'
 alias f='find . | grep -i'
@@ -38,3 +38,4 @@ alias h='history'
 alias hgrep='history | grep'
 alias ds='du -sm * | sort -n'
 alias img="loupe"
+
