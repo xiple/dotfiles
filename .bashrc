@@ -45,7 +45,12 @@ exit_code() {
 
     # This will be final prompt, whatever set earlier will be
     # overwritten by this.
-    export PS1="[$EXIT][\u@\h \W]\$ "
+    if [ "$USER" = "root" ]; then
+        PS1="\[\e[1;31m\][$EXIT][\u@\h \W]\$\[\e[0m\] "
+    else
+        PS1="\[\e[1;32m\][$EXIT][\u@\h \W]\$\[\e[0m\] "
+    fi
+    export PS1
 }
 
 [ -n "$PROMPT_COMMAND" ] && PROMPT_COMMAND="exit_code;$PROMPT_COMMAND" ||
