@@ -39,3 +39,7 @@ alias hgrep='history | grep'
 alias ds='du -sm * | sort -n'
 alias img="loupe"
 
+# Tailscale VPN
+
+alias vpn="tailscale set --exit-node=homelab"
+alias novpn="tailscale set --exit-node="
