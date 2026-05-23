@@ -43,3 +43,7 @@ alias img="loupe"
 
 alias vpn="tailscale set --exit-node=homelab"
 alias novpn="tailscale set --exit-node="
+
+# My IP location
+
+alias myip="curl 'https://ipapi.co/json/'"
