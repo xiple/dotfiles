@@ -15,6 +15,13 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# for terminal emulators (like ptyxis) to communicate with shell
+# through escape sequences (in PROMPT_COMMAND)
+# Example : Open new tabs in the same directory on ptyxis
+if [ -r /etc/profile.d/vte.sh ]; then
+    . /etc/profile.d/vte.sh
+fi
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
