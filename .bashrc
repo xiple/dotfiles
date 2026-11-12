@@ -65,8 +65,11 @@ exit_code() {
 
 # Variables
 export LANG='en_US.UTF-8'
-export HISTIGNORE='pwd:ls:cd'
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
-
+# both commands starting with a space are not saved (ignorespace)
+# and a command identical to the previous one is not saved (ignoredups)
+# erasedups: removes all earlier duplicates of a command from the whole history when the new one is saved
+export HISTCONTROL=ignoreboth:erasedups
+export HISTIGNORE='pwd:ls:cd'
