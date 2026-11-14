@@ -62,7 +62,7 @@ function ng () {
         echo "Failed to grep. Run again with a pattern"
         return 1
     fi
-    grep -Rih $pattern ${NOTES_DIR}/*
+    grep -Rih "$pattern" ${NOTES_DIR}/*
 }
 
 function ngl () {
