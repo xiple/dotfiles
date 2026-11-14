@@ -58,7 +58,7 @@ function n () {
 
 function ng () {
     pattern="$1"
-    if [ -z $pattern ]; then
+    if [ -z "$pattern" ]; then
         echo "Failed to grep. Run again with a pattern"
         return 1
     fi
